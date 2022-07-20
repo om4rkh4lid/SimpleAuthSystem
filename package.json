@@ -1,0 +1,24 @@
+{
+  "name": "simpleauthsystem",
+  "version": "1.0.0",
+  "description": "A simple authentication system using JWT which has a single endpoint that requires a user to be logged in.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "NODE_ENV=development nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Omar Khalid",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.14"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}

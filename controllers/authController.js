@@ -32,7 +32,8 @@ exports.signup = catchAsync(async (req, res, next) => {
         .json({
             status: 'success',
             data: {
-                token
+                token,
+                user
             }
         })
 
@@ -94,7 +95,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     // 4) Verify the user's password has not changed since the token was signed
     const f = user.changedPasswordAfter(decoded.iat)
-    console.log(f)
+
     if (f) {
         const err = new Error('User has changed the password recently. Please log in again!')
         err.statusCode = 401
@@ -102,5 +103,20 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(err)
     }
 
+    // add the user object to the request
+    req.user = user;
     next();
 })
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            const err = new Error('You don\'t have permission to perform this action.');
+            err.statusCode = 403
+            err.status = 'failure'
+            return next(err)
+        }
+
+        next()
+    }
+}

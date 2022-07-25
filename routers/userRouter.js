@@ -5,6 +5,7 @@ const userController = require('../controllers/userController')
 const userRouter = express.Router()
 
 userRouter.route('/search')
-.get(authController.protect, userController.search)
+.all(authController.protect)
+.get(authController.restrictTo('user', 'admin'), userController.search)
 
 module.exports = userRouter

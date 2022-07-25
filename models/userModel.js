@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
         // Don't include it in find() queries
         select: false 
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'super-admin'],
+        default: 'user'
+    },
     passwordConfirm: {
         type: String,
         required: [true, 'You need to confirm the password to be able to register'],
